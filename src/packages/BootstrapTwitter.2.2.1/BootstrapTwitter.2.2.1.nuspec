@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>BootstrapTwitter</id>
+    <version>2.2.1</version>
+    <title>Bootstrap, from Twitter</title>
+    <authors>Frans Stridh</authors>
+    <owners>Frans Stridh</owners>
+    <projectUrl>http://twitter.github.com/bootstrap/</projectUrl>
+    <iconUrl>http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bootstrap is a toolkit from Twitter designed to kickstart development of webapps and sites.
+It includes base CSS and HTML for typography, forms, buttons, tables, grids, navigation, and more.</description>
+    <summary>Bootstrap is a toolkit from Twitter designed to kickstart development of webapps and sites.</summary>
+    <releaseNotes>https://github.com/twitter/bootstrap/wiki/Changelog</releaseNotes>
+    <copyright>Copyright 2012 Twitter</copyright>
+    <tags>css html framework js bootstrap</tags>
+  </metadata>
+</package>
