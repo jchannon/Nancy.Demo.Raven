@@ -6,18 +6,34 @@ using Nancy.Bootstrapper;
 using Nancy.Demo.RavenDB.Raven;
 using Nancy.TinyIoc;
 using Raven.Client;
+using Raven.Client.Embedded;
 
 namespace Nancy.Demo.RavenDB
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
+        protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+        {
+            base.ConfigureApplicationContainer(container);
+
+            var store = new EmbeddableDocumentStore()
+            {
+                ConnectionStringName = "RavenDB"
+            };
+
+            store.Initialize();
+
+            container.Register<IDocumentStore>(store);
+        }
+
         protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)
         {
             base.ConfigureRequestContainer(container, context);
 
-            container.Register<RavenSessionProvider>().AsSingleton();
+            var store = container.Resolve<IDocumentStore>();
+            var documentSession = store.OpenSession();
 
-            base.ConfigureRequestContainer(container, context);
+            container.Register<IDocumentSession>(documentSession);
         }
 
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
@@ -27,14 +43,7 @@ namespace Nancy.Demo.RavenDB
             pipelines.AfterRequest.AddItemToEndOfPipeline(
                 (ctx) =>
                 {
-                    var documentSessionProvider = container.Resolve<RavenSessionProvider>();
-
-                    if (!documentSessionProvider.SessionInitialized)
-                    {
-                        return;
-                    }
-
-                    var documentSession = documentSessionProvider.GetSession();
+                    var documentSession = container.Resolve<IDocumentSession>();
 
                     if (ctx.Response.StatusCode != HttpStatusCode.InternalServerError)
                     {

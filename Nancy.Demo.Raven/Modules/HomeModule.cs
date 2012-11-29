@@ -10,11 +10,11 @@ namespace Nancy.Demo.RavenDB.Modules
 {
     public class HomeModule : NancyModule
     {
-        public HomeModule(RavenSessionProvider ravenSessionProvider)
+        public HomeModule(IDocumentSession documentSession)
         {
             Get["/"] = parameters =>
                            {
-                               var documentSession = ravenSessionProvider.GetSession();
+                              // var documentSession = ravenSessionProvider.GetSession();
                                var model = documentSession.Load<Person>(1);
                                
                                return View["home", model];
