@@ -1,4 +1,4 @@
-# Nancy.Demo.RAven
+# Nancy.Demo.Raven
 
 This is a demo for showing how you can implement [RavenDB](http://ravendb.net/) in your Nancy applications.
 
